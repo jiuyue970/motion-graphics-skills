@@ -30,20 +30,24 @@ When I ran it on five frames from my own work, it noticed I use four different l
 
 ## 2. Make Claude read it first
 
-Use this once, straight after MOTION.md is saved. It adds the read-first rule to CLAUDE.md:
+Use this once, straight after MOTION.md is saved. It adds a read-first rule to CLAUDE.md that covers motion work only, so code and other tasks in the same folder work as before:
 
 ```
-Add this to CLAUDE.md, and create the file if it does not exist:
+Show me the block below and where it will go, then wait for my yes. After that, append it to the end of CLAUDE.md, or create the file if it does not exist. Do not change anything else in CLAUDE.md.
 
-Before designing, generating or animating anything, read MOTION.md in full.
+## Motion graphics
 
-Every colour, font, timing and motion value comes from that file.
+When I ask for a motion graphic, an animation or a video, read MOTION.md in full before you design or build it.
+
+Every colour, font, timing and motion value in that work comes from that file.
 
 The file sets the look, not the ambition. When I say go all out, go all out.
 
-If something I ask for is not covered there, ask me rather than choosing for yourself.
+If a motion request is not covered there, ask me rather than choosing for yourself.
 
-When you have finished, check your own frames against MOTION.md, fix what fails, and only then show me.
+When you have finished a motion piece, check your own frames against MOTION.md, fix what fails, and only then show me.
+
+This rule covers motion work only. Every other task in this folder works as before.
 ```
 
 The ambition line matters. Without it, the first build with the file comes out far too polite.

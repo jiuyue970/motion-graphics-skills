@@ -1,6 +1,6 @@
 ---
 name: brand-intake
-description: The setup step every other skill in this pack reads. A short interview plus 3 to 5 reference frames becomes two files in your project, brand.md (who you are, what you sell, your assets) and MOTION.md (your colours, type, timing and motion rules), plus a rule in CLAUDE.md so Claude reads them before it animates anything. Use at the start of any motion project, or when someone says "set up my brand", "brand intake", "build my motion design system", "make it look like my brand", "onboard me", "write my MOTION.md" or drops a batch of brand frames into chat.
+description: The setup step every other skill in this pack reads. A short interview plus 3 to 5 reference frames becomes two files in your project, brand.md (who you are, what you sell, your assets) and MOTION.md (your colours, type, timing and motion rules), plus, after you say yes, a motion-only rule in CLAUDE.md so Claude reads them before it animates anything. Use at the start of any motion project, or when someone says "set up my brand", "brand intake", "build my motion design system", "make it look like my brand", "write my MOTION.md" or drops a batch of brand frames into chat.
 ---
 
 # Brand intake
@@ -62,20 +62,30 @@ Work only from what is in the frames. Where you cannot tell, write ASK ME rather
 
 Show the user the file before you save it. Colours in brand.md win over colours sampled from a frame.
 
-## Step 4: Add the read-first rule to CLAUDE.md
+## Step 4: Add the read-first rule to CLAUDE.md, after a yes
 
-Create CLAUDE.md if it does not exist, and add this block word for word:
+CLAUDE.md is read for every task in this folder, not only for motion. So the rule is limited to motion work, and you ask before you write it.
+
+1. Check whether CLAUDE.md exists in the project root. If the folder also holds code or other work, suggest a separate folder for motion projects.
+2. Show the user the block below and say where it will go: appended to the end of the existing CLAUDE.md, or in a new CLAUDE.md. Wait for a yes.
+3. Append the block word for word. Never edit, reorder or remove anything already in CLAUDE.md. If the block is already there, do not add it again.
+
+If the user says no, skip this step and tell them to start each motion request with "Read MOTION.md first."
 
 ```
-Before designing, generating or animating anything, read MOTION.md in full.
+## Motion graphics
 
-Every colour, font, timing and motion value comes from that file.
+When I ask for a motion graphic, an animation or a video, read MOTION.md in full before you design or build it.
+
+Every colour, font, timing and motion value in that work comes from that file.
 
 The file sets the look, not the ambition. When I say go all out, go all out.
 
-If something I ask for is not covered there, ask me rather than choosing for yourself.
+If a motion request is not covered there, ask me rather than choosing for yourself.
 
-When you have finished, check your own frames against MOTION.md, fix what fails, and only then show me.
+When you have finished a motion piece, check your own frames against MOTION.md, fix what fails, and only then show me.
+
+This rule covers motion work only. Every other task in this folder works as before.
 ```
 
 ## What I learned the hard way
@@ -91,4 +101,4 @@ Run the same one-line prompt twice, once in an empty folder and once in this pro
 
 ## Hand off
 
-Tell the user brand.md, MOTION.md and the CLAUDE.md rule are in place, then list what to try next: `launch-video`, `vox-explainer`, `animated-chart`, `milestone-reveal`. Until both files exist, no other skill may call its result on-brand.
+Tell the user brand.md and MOTION.md are in place, and whether the CLAUDE.md rule was added, then list what to try next: `launch-video`, `vox-explainer`, `animated-chart`, `milestone-reveal`. Until both files exist, no other skill may call its result on-brand.

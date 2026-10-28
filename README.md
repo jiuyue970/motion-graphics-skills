@@ -171,7 +171,7 @@ See each skill's `SKILL.md` for its trigger phrases, the inputs it asks for and 
 
 ## How they fit together
 
-Run `brand-intake` once. It writes `brand.md` (who you are, what you sell, your assets) and `MOTION.md` (your colours, type, timing and motion rules), and adds a rule to CLAUDE.md so Claude reads both before it animates anything. Every other skill reads those two files first. Without them, a skill asks for your hex codes, font and logo, and never calls its result on-brand.
+Run `brand-intake` once. It writes `brand.md` (who you are, what you sell, your assets) and `MOTION.md` (your colours, type, timing and motion rules), and, after you say yes, adds a motion-only rule to CLAUDE.md so Claude reads both before it animates anything. Every other skill reads those two files first. Without them, a skill asks for your hex codes, font and logo, and never calls its result on-brand.
 
 ```mermaid
 flowchart TD
