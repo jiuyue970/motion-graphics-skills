@@ -22,14 +22,19 @@ The app draws its own buttons, caption and profile over the edges of a Reel. Kee
 - between y 360 and y 1420 (nothing in the bottom 500px)
 - out of the right 120px
 
-Put the headline at the top of that zone, then the video under it. A 16:9 video scaled to 1080 wide is 608 tall, so it sits well at y 660.
+Put the headline at the top of that zone, then the video under it. The video fits inside a box 1080 wide and 760 tall that starts at y 660, so its bottom edge never passes y 1420:
+- 16:9 fills the width at 1080 x 608, from y 660 to 1268.
+- 4:5 becomes 608 x 760, centred, from y 660 to 1420.
+- Square becomes 760 x 760, centred, from y 660 to 1420.
+
+At full width a 4:5 video would run 590px past y 1420: 500px under the app's buttons and caption, and its bottom 90px off the frame. The box stops both.
 
 ## Step 3: Build the overlay, then encode
 
 Build a transparent 1080 x 1920 `overlay.png` in HTML with the headline and any logos, and screenshot it. Text you can style beats text burned in by ffmpeg. Then:
 
 ```
-ffmpeg -y -i in.mp4 -loop 1 -i overlay.png -f lavfi -i anullsrc=r=48000:cl=stereo -filter_complex "color=c=0x0B0B0F:s=1080x1920:r=30[bg];[0:v]fps=30,scale=1080:-2,setsar=1[v];[bg][v]overlay=0:660:shortest=1[o];[o][1:v]overlay=0:0:shortest=1,scale=out_color_matrix=bt709:out_range=tv,format=yuv420p[out]" -map "[out]" -map 2:a -shortest -c:v libx264 -profile:v high -crf 18 -pix_fmt yuv420p -color_range tv -colorspace bt709 -color_primaries bt709 -color_trc bt709 -c:a aac -b:a 128k -movflags +faststart reel.mp4
+ffmpeg -y -i in.mp4 -loop 1 -i overlay.png -f lavfi -i anullsrc=r=48000:cl=stereo -filter_complex "color=c=0x0B0B0F:s=1080x1920:r=30[bg];[0:v]fps=30,scale=1080:760:force_original_aspect_ratio=decrease:force_divisible_by=2,setsar=1[v];[bg][v]overlay=x=(main_w-overlay_w)/2:y=660:shortest=1[o];[o][1:v]overlay=0:0:shortest=1,scale=out_color_matrix=bt709:out_range=tv,format=yuv420p[out]" -map "[out]" -map 2:a -shortest -c:v libx264 -profile:v high -crf 18 -pix_fmt yuv420p -color_range tv -colorspace bt709 -color_primaries bt709 -color_trc bt709 -c:a aac -b:a 128k -movflags +faststart reel.mp4
 ```
 
 This adds a silent AAC track. If the video has its own sound, swap `-map 2:a` for `-map 0:a`.
@@ -40,7 +45,7 @@ This adds a silent AAC track. If the video has its own sound, swap `-map 2:a` fo
 ffprobe -v error -show_entries stream=codec_type,codec_name,width,height,pix_fmt,color_range,color_space -of compact reel.mp4
 ```
 
-Pass means: video `h264`, `1080` x `1920`, `yuv420p`, `color_range=tv`, `bt709`, plus one `aac` audio stream. If you see `hevc` or `color_range=pc`, encode again. Then pull one frame from the middle and look at it at phone size.
+Pass means: video `h264`, `1080` x `1920`, `yuv420p`, `color_range=tv`, `bt709`, plus one `aac` audio stream. If you see `hevc` or `color_range=pc`, encode again. Then pull one frame from the middle and look at it at phone size. The bottom of the video sits at or above y 1420, and none of it is cut off.
 
 ## What I learned the hard way
 
